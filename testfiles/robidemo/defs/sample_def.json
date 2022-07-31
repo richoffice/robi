@@ -1,0 +1,20 @@
+{
+    "sheets":[
+        {
+            "key": "visitors",
+            "aliases": ["Visitors List", "访客名单", "Visitors"],
+            "fields":[
+                {
+                    "key": "name",
+                    "aliases": ["名称", "姓名", "Name"]
+                },
+                {
+                    "key": "birthday",
+                    "aliases": ["生日", "Birthday"],
+                    "dataType": "ExcelDate"
+                }
+
+            ]
+        }
+    ]
+}
