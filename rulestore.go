@@ -55,6 +55,7 @@ func NewStoreFromDirectory(dir string) (*DirRuleStore, error) {
 	rules := make(map[string]*Rule)
 
 	for _, f := range files {
+		// fmt.Println(f.Name())
 		if !f.IsDir() && strings.HasSuffix(f.Name(), "js") {
 			path := filepath.Join(dir, f.Name())
 			srcBytes, readErr := ioutil.ReadFile(path)

@@ -31,20 +31,21 @@ func TestRobi_Execute(t *testing.T) {
 func TestRobi_ExecuteSimple(t *testing.T) {
 	robi, err := NewRobi("./testfiles/robidemo")
 
-	expected := map[string]interface{}{
-		"z": int64(6),
-	}
+	expected := "./testfiles/robidemo/src/sample_file.xlsx"
+
 	if err != nil {
 		t.Errorf("expected no error, but got %v", err)
 	}
-	result, err := robi.Execute("testRule", []string{
-		"",
+
+	result, err := robi.Execute("simple", []string{
+		"./testfiles/robidemo/src/sample_file.xlsx",
 	})
+
 	if err != nil {
 		t.Errorf("expected no error, but got %v", err)
 	}
 	if !reflect.DeepEqual(expected, result) {
 		t.Errorf("expected %v but got %v", expected, result)
 	}
-	fmt.Println(result.(map[string]interface{}))
+	// fmt.Println(result.(map[string]interface{}))
 }
