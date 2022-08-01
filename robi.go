@@ -48,7 +48,16 @@ func (robi *Robi) Import(defPath string, srcFile string) interface{} {
 	return rf
 }
 
-func (robi *Robi) Export(def string, targetFile string) interface{} {
+func (robi *Robi) Export(data map[string]*richframe.RichFrame, targetFile string, defPath string) interface{} {
+	fullPath := defPath
+	if !strings.HasPrefix(defPath, "/") {
+		fullPath = filepath.Join(robi.Base, "defs", defPath)
+	}
+	err := richframe.ExportRichFrames(data, targetFile, fullPath, nil)
+	if err != nil {
+		panic(err)
+	}
+
 	return nil
 }
 

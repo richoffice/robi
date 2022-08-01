@@ -12,6 +12,10 @@
                     "key": "birthday",
                     "aliases": ["生日", "Birthday"],
                     "dataType": "ExcelDate"
+                },
+                {
+                    "key": "fullname",
+                    "aliases": ["全名", "Birthday"]
                 }
 
             ]

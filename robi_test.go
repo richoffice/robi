@@ -39,6 +39,7 @@ func TestRobi_ExecuteSimple(t *testing.T) {
 
 	result, err := robi.Execute("simple", []string{
 		"./testfiles/robidemo/src/sample_file.xlsx",
+		"./testfiles/robidemo/src/sample_file_out.xlsx",
 	})
 
 	if err != nil {
