@@ -20,8 +20,13 @@ func NewRobi(base string) (*Robi, error) {
 		return nil, err
 	}
 
+	absPath, err := filepath.Abs(base)
+	if err != nil {
+		return nil, err
+	}
+
 	robi := &Robi{
-		Base: base,
+		Base: absPath,
 	}
 
 	var vars map[string]interface{} = map[string]interface{}{
