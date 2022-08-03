@@ -41,6 +41,10 @@ func NewRobi(base string) (*Robi, error) {
 	return robi, nil
 }
 
+func (robi *Robi) NewRichFrames() map[string]*richframe.RichFrame {
+	return make(map[string]*richframe.RichFrame, 0)
+}
+
 func (robi *Robi) LoadDict(name string) interface{} {
 	excelPath := filepath.Join(robi.Base, "dicts", name+".xlsx")
 	defPath := filepath.Join(robi.Base, "dicts", name+".json")
@@ -83,4 +87,16 @@ func (robi *Robi) Execute(task string, args interface{}) (interface{}, error) {
 
 func (robi *Robi) Now() time.Time {
 	return time.Now()
+}
+
+func (robi *Robi) FromUnix(sec int64) time.Time {
+	return time.Unix(sec, 0)
+}
+
+func (robi *Robi) MonthStart(in time.Time) time.Time {
+	return time.Date(in.Year(), in.Month(), 0, 0, 0, 0, 0, in.Location())
+}
+
+func (robi *Robi) MonthEnd(in time.Time) time.Time {
+	return time.Date(in.Year(), in.Month(), 0, 0, 0, 0, 0, in.Location()).AddDate(0, 1, 0)
 }
