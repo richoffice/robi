@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/richoffice/richframe"
 )
@@ -40,6 +41,16 @@ func NewRobi(base string) (*Robi, error) {
 	return robi, nil
 }
 
+func (robi *Robi) LoadDict(name string) interface{} {
+	excelPath := filepath.Join(robi.Base, "dicts", name+".xlsx")
+	defPath := filepath.Join(robi.Base, "dicts", name+".json")
+	rf, err := richframe.LoadRichFrames(excelPath, defPath, nil)
+	if err != nil {
+		panic(err)
+	}
+	return rf
+}
+
 func (robi *Robi) Import(defPath string, srcFile string) interface{} {
 	fullPath := defPath
 
@@ -68,4 +79,8 @@ func (robi *Robi) Export(data map[string]*richframe.RichFrame, targetFile string
 
 func (robi *Robi) Execute(task string, args interface{}) (interface{}, error) {
 	return robi.Engine.ApplyRule(task, args)
+}
+
+func (robi *Robi) Now() time.Time {
+	return time.Now()
 }
