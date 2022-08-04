@@ -7,11 +7,13 @@ import (
 	"time"
 
 	"github.com/richoffice/richframe"
+	"github.com/spf13/viper"
 )
 
 type Robi struct {
 	Base   string
 	Engine RuleEngine
+	Mailer *Mailer
 }
 
 func NewRobi(base string) (*Robi, error) {
@@ -38,7 +40,32 @@ func NewRobi(base string) (*Robi, error) {
 	engine := NewMemoryRuleEngine(store, vars)
 	robi.Engine = engine
 
+	err = GetConfig(absPath)
+	if err != nil {
+		fmt.Println("no config file")
+		return nil, err
+	}
+
+	host := viper.GetString("mail.smtp")
+	port := viper.GetInt("mail.port")
+	user := viper.GetString("mail.user")
+	password := viper.GetString("mail.password")
+	mailer := NewMailer(host, port, user, password)
+	robi.Mailer = mailer
+
 	return robi, nil
+}
+
+func GetConfig(absPath string) error {
+	viper.SetConfigName("conf")
+	viper.SetConfigType("json")
+	viper.AddConfigPath(filepath.Join(absPath, "conf"))
+
+	err := viper.ReadInConfig()
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (robi *Robi) NewRichFrames() map[string]*richframe.RichFrame {
@@ -68,7 +95,7 @@ func (robi *Robi) Import(defPath string, srcFile string) interface{} {
 	return rf
 }
 
-func (robi *Robi) Export(data map[string]*richframe.RichFrame, targetFile string, defPath string) interface{} {
+func (robi *Robi) Export(data map[string]*richframe.RichFrame, defPath string, targetFile string) interface{} {
 	fullPath := defPath
 	if !strings.HasPrefix(defPath, "/") {
 		fullPath = filepath.Join(robi.Base, "defs", defPath)
