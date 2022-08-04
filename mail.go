@@ -32,7 +32,13 @@ func NewMailer(host string, port int, user, password string) *Mailer {
 func (mailer *Mailer) Send(from string, to []string, cc []string, subject string, body string, attaches []string) error {
 
 	email := mail.NewMSG()
-	email.SetFrom(from)
+
+	if from == "" {
+		email.SetFrom(mailer.Client.Username)
+	} else {
+		email.SetFrom(from)
+	}
+
 	for _, t := range to {
 		email.AddTo(t)
 	}
