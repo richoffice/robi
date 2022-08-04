@@ -1,7 +1,10 @@
 package robi
 
 import (
+	"bytes"
 	"fmt"
+	"html/template"
+	"os"
 	"path/filepath"
 	"strings"
 	"time"
@@ -126,4 +129,20 @@ func (robi *Robi) MonthStart(in time.Time) time.Time {
 
 func (robi *Robi) MonthEnd(in time.Time) time.Time {
 	return time.Date(in.Year(), in.Month(), 0, 0, 0, 0, 0, in.Location()).AddDate(0, 1, 0)
+}
+
+func (robi *Robi) ExeTemplate(tpl string, data interface{}) string {
+
+	tmp := template.Must(template.ParseFiles(filepath.Join(robi.Base, "tpl", tpl)))
+
+	var w bytes.Buffer
+	tmp.Execute(&w, data)
+
+	return w.String()
+
+}
+
+func (robi *Robi) WriteFile(path string, content string) error {
+	err := os.WriteFile(path, []byte(content), 0644)
+	return err
 }
