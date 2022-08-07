@@ -46,15 +46,14 @@ func NewRobi(base string) (*Robi, error) {
 	err = GetConfig(absPath)
 	if err != nil {
 		fmt.Println("no config file")
-		return nil, err
+	} else {
+		host := viper.GetString("mail.smtp")
+		port := viper.GetInt("mail.port")
+		user := viper.GetString("mail.user")
+		password := viper.GetString("mail.password")
+		mailer := NewMailer(host, port, user, password)
+		robi.Mailer = mailer
 	}
-
-	host := viper.GetString("mail.smtp")
-	port := viper.GetInt("mail.port")
-	user := viper.GetString("mail.user")
-	password := viper.GetString("mail.password")
-	mailer := NewMailer(host, port, user, password)
-	robi.Mailer = mailer
 
 	return robi, nil
 }

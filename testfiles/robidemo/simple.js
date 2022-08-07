@@ -8,11 +8,10 @@
     var addFunc = function(row){
         return row["name"]+"-xxx";
     };
-    visitors.Add("fullname",addFunc);
+    visitors.Mutate("fullname",addFunc);
 
     log("export to:"+out);
 
-    robi.Export(rfs, out, "sample_def.json");
-    log(visitors);
+    robi.Export(rfs,"sample_def.json", out );
     return src;
 })(input)
