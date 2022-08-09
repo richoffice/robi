@@ -127,7 +127,11 @@ func (robi *Robi) MonthStart(in time.Time) time.Time {
 }
 
 func (robi *Robi) MonthEnd(in time.Time) time.Time {
-	return time.Date(in.Year(), in.Month(), 0, 0, 0, 0, 0, in.Location()).AddDate(0, 1, 0)
+	monthStartDay := in.AddDate(0, 0, -in.Day()+1)
+	monthStartTime := time.Date(monthStartDay.Year(), monthStartDay.Month(), monthStartDay.Day(), 0, 0, 0, 0, in.Location())
+	monthEndDay := monthStartTime.AddDate(0, 1, -1)
+	monthEndTime := time.Date(monthEndDay.Year(), monthEndDay.Month(), monthEndDay.Day(), 23, 59, 59, 0, in.Location())
+	return monthEndTime
 }
 
 func (robi *Robi) ExeTemplate(tpl string, data interface{}) string {
