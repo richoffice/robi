@@ -2,13 +2,16 @@ package robi
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"html/template"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
 
+	"github.com/Masterminds/sprig"
 	"github.com/richoffice/richframe"
 	"github.com/spf13/viper"
 )
@@ -17,6 +20,7 @@ type Robi struct {
 	Base   string
 	Engine RuleEngine
 	Mailer *Mailer
+	Timer  *Timer
 }
 
 func NewRobi(base string) (*Robi, error) {
@@ -54,6 +58,8 @@ func NewRobi(base string) (*Robi, error) {
 		mailer := NewMailer(host, port, user, password)
 		robi.Mailer = mailer
 	}
+
+	robi.Timer = &Timer{}
 
 	return robi, nil
 }
@@ -134,9 +140,21 @@ func (robi *Robi) MonthEnd(in time.Time) time.Time {
 	return monthEndTime
 }
 
+func Percent(x int, y int) string {
+	z := (float64(x) / float64(y)) * 100
+	return fmt.Sprintf("%4.2f", z)
+}
+
+func (robi *Robi) GetTemplatePath(tpl string) string {
+	return filepath.Join(robi.Base, "tpl", tpl)
+}
+
 func (robi *Robi) ExeTemplate(tpl string, data interface{}) string {
 
-	tmp := template.Must(template.ParseFiles(filepath.Join(robi.Base, "tpl", tpl)))
+	ms := sprig.FuncMap()
+	ms["Percent"] = Percent
+
+	tmp := template.Must(template.New(tpl).Funcs(ms).ParseFiles(filepath.Join(robi.Base, "tpl", tpl)))
 
 	var w bytes.Buffer
 	tmp.Execute(&w, data)
@@ -148,4 +166,16 @@ func (robi *Robi) ExeTemplate(tpl string, data interface{}) string {
 func (robi *Robi) WriteFile(path string, content string) error {
 	err := os.WriteFile(path, []byte(content), 0644)
 	return err
+}
+
+func (robi *Robi) ExecuteCommand(cmdstr string, args []string) error {
+	cmd := exec.Command(cmdstr, args...)
+
+	output, err := cmd.CombinedOutput()
+	fmt.Println(output)
+	if err != nil {
+		fmt.Println(err.Error())
+		return errors.New(string(output)) // not include err: executable file not found in %PATH%
+	}
+	return nil
 }
