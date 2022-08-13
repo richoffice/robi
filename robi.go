@@ -24,6 +24,7 @@ type Robi struct {
 	Timer  *Timer
 	Qrcode *Qrcode
 	Wxmp   *weixinmp.WeixinMp
+	File   *File
 }
 
 func NewRobi(base string) (*Robi, error) {
@@ -69,6 +70,8 @@ func NewRobi(base string) (*Robi, error) {
 	}
 
 	robi.Timer = &Timer{}
+	robi.Qrcode = &Qrcode{}
+	robi.File = &File{}
 
 	return robi, nil
 }
