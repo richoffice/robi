@@ -5,7 +5,6 @@ go 1.18
 require (
 	github.com/Masterminds/sprig v2.22.0+incompatible
 	github.com/dop251/goja v0.0.0-20220730095050-d11430fb5f72
-	github.com/richoffice/richframe v1.0.0
 	github.com/spf13/viper v1.12.0
 	github.com/xhit/go-simple-mail/v2 v2.11.0
 )
@@ -30,6 +29,7 @@ require (
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
 	github.com/richardlehane/mscfb v1.0.4 // indirect
 	github.com/richardlehane/msoleps v1.0.1 // indirect
+	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect

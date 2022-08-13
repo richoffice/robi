@@ -13,6 +13,7 @@ import (
 
 	"github.com/Masterminds/sprig"
 	"github.com/richoffice/richframe"
+	"github.com/richoffice/weixinmp"
 	"github.com/spf13/viper"
 )
 
@@ -21,6 +22,8 @@ type Robi struct {
 	Engine RuleEngine
 	Mailer *Mailer
 	Timer  *Timer
+	Qrcode *Qrcode
+	Wxmp   *weixinmp.WeixinMp
 }
 
 func NewRobi(base string) (*Robi, error) {
@@ -57,6 +60,12 @@ func NewRobi(base string) (*Robi, error) {
 		password := viper.GetString("mail.password")
 		mailer := NewMailer(host, port, user, password)
 		robi.Mailer = mailer
+
+		appid := viper.GetString("wxmp.appid")
+		appkey := viper.GetString("wxmp.appkey")
+		encodingkey := viper.GetString("wxmp.encodingkey")
+		wxmp := weixinmp.NewWeixinMp(appid, appkey, encodingkey)
+		robi.Wxmp = wxmp
 	}
 
 	robi.Timer = &Timer{}
