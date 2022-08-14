@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 )
 
 type File struct {
@@ -65,4 +66,15 @@ func (f *File) Exist(file string) bool {
 	} else {
 		panic(err)
 	}
+}
+
+func (f *File) Glob(pattern string) interface{} {
+	files, err := filepath.Glob(pattern)
+	if err != nil {
+		return map[string]interface{}{
+			"errmsg": err.Error(),
+		}
+	}
+
+	return files
 }
