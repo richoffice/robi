@@ -5,11 +5,13 @@ go 1.18
 require (
 	github.com/Masterminds/sprig v2.22.0+incompatible
 	github.com/dop251/goja v0.0.0-20220730095050-d11430fb5f72
-	github.com/richoffice/richframe v1.0.2
+	github.com/labstack/echo/v4 v4.8.0
+	github.com/richoffice/richframe v1.0.3
 	github.com/richoffice/weixinmp v1.0.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/spf13/viper v1.12.0
 	github.com/xhit/go-simple-mail/v2 v2.11.0
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
@@ -25,7 +27,6 @@ require (
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/imdario/mergo v0.3.13 // indirect
-	github.com/labstack/echo/v4 v4.8.0 // indirect
 	github.com/labstack/gommon v0.3.1 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
@@ -55,5 +56,4 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/ini.v1 v1.66.4 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
