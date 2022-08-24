@@ -3,15 +3,31 @@ package robi
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/richoffice/richframe"
 	"gopkg.in/yaml.v3"
 )
 
 type File struct {
+}
+
+func (f *File) RelativePath(base string, originBase string, originPath string) string {
+	baseDir := filepath.Dir(base)
+	relBase, err := filepath.Rel(baseDir, originBase)
+	if err != nil {
+		fmt.Println(err)
+		return ""
+	}
+
+	newBase := filepath.Dir(relBase)
+	newRel := filepath.Join(newBase, originPath)
+
+	return strings.ReplaceAll(newRel, "\\", "/")
 }
 
 func (f *File) LoadExcel(srcFile string, defPath string) interface{} {
@@ -33,6 +49,47 @@ func (f *File) WriteExcel(data map[string]richframe.RichFrame, targetFile string
 		}
 	}
 	return nil
+}
+
+func (f *File) LoadFile(file string) interface{} {
+	b, err := os.ReadFile(file) // just pass the file name
+	if err != nil {
+		return map[string]interface{}{
+			"errmsg": err.Error(),
+		}
+	}
+
+	str := string(b)
+	return str
+}
+
+func (f *File) WriteFile(file string, content string, isAppend bool) interface{} {
+	var fi *os.File
+	var err error
+	if isAppend {
+		fi, err = os.OpenFile(file, os.O_APPEND|os.O_WRONLY, 0644)
+		if err != nil {
+			return map[string]interface{}{
+				"errmsg": err.Error(),
+			}
+		}
+	} else {
+		fi, err = os.OpenFile(file, os.O_CREATE|os.O_WRONLY, 0644)
+		if err != nil {
+			return map[string]interface{}{
+				"errmsg": err.Error(),
+			}
+		}
+	}
+	defer fi.Close()
+	if _, err := fi.WriteString(content); err != nil {
+		return map[string]interface{}{
+			"errmsg": err.Error(),
+		}
+	}
+
+	return nil
+
 }
 
 func (f *File) LoadYaml(file string) interface{} {

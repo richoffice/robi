@@ -18,13 +18,14 @@ import (
 )
 
 type Robi struct {
-	Base   string
-	Engine RuleEngine
-	Mailer *Mailer
-	Timer  *Timer
-	Qrcode *Qrcode
-	Wxmp   *weixinmp.WeixinMp
-	File   *File
+	Base     string
+	Engine   RuleEngine
+	Mailer   *Mailer
+	Timer    *Timer
+	Qrcode   *Qrcode
+	Wxmp     *weixinmp.WeixinMp
+	File     *File
+	Template *RobiTemplate
 }
 
 func NewRobi(base string) (*Robi, error) {
@@ -72,6 +73,7 @@ func NewRobi(base string) (*Robi, error) {
 	robi.Timer = &Timer{}
 	robi.Qrcode = &Qrcode{}
 	robi.File = &File{}
+	robi.Template = &RobiTemplate{}
 
 	return robi, nil
 }
