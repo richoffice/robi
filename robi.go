@@ -129,6 +129,19 @@ func (robi *Robi) Export(data map[string]richframe.RichFrame, defPath string, ta
 
 	return nil
 }
+func (robi *Robi) ExportByTemp(data map[string]richframe.RichFrame, defPath string, targetFile, name string) interface{} {
+	fullPath := defPath
+	if !strings.HasPrefix(defPath, "/") {
+		fullPath = filepath.Join(robi.Base, "defs", defPath)
+	}
+	tmpExcelFile := filepath.Join(robi.Base, "dicts", name+".xlsx")
+	err := richframe.ExportRichFramesByTemp(data, targetFile, tmpExcelFile, fullPath, nil)
+	if err != nil {
+		panic(err)
+	}
+
+	return nil
+}
 
 func (robi *Robi) Execute(task string, args interface{}) (interface{}, error) {
 	return robi.Engine.ApplyRule(task, args)
