@@ -16,6 +16,10 @@ import (
 type File struct {
 }
 
+func (f *File) Base(file string) string {
+	return filepath.Base(file)
+}
+
 func (f *File) RelativePath(base string, originBase string, originPath string) string {
 	baseDir := filepath.Dir(base)
 	relBase, err := filepath.Rel(baseDir, originBase)
@@ -43,6 +47,38 @@ func (f *File) LoadExcel(srcFile string, defPath string) interface{} {
 func (f *File) WriteExcel(data map[string]richframe.RichFrame, targetFile string, defPath string) interface{} {
 
 	err := richframe.ExportRichFrames(data, targetFile, defPath, nil)
+	if err != nil {
+		return map[string]interface{}{
+			"errmsg": err.Error(),
+		}
+	}
+	return nil
+}
+
+func (f *File) WriteExcelByTemp(data map[string]richframe.RichFrame, targetFile string, tempFile string, defPath string) interface{} {
+
+	err := richframe.ExportRichFramesByTemp(data, targetFile, tempFile, defPath, nil)
+	if err != nil {
+		return map[string]interface{}{
+			"errmsg": err.Error(),
+		}
+	}
+	return nil
+}
+
+func (f *File) LoadCSV(srcFile string, keys []string) interface{} {
+	rf, err := richframe.LoadCSV(srcFile, keys)
+	if err != nil {
+		return map[string]interface{}{
+			"errmsg": err.Error(),
+		}
+	}
+	return rf
+}
+
+func (f *File) WriteCSV(csvpath string, rf richframe.RichFrame, keys []string, isAppend bool) interface{} {
+
+	err := richframe.SaveCSV(csvpath, rf, keys, isAppend)
 	if err != nil {
 		return map[string]interface{}{
 			"errmsg": err.Error(),
