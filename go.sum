@@ -210,8 +210,8 @@ github.com/richardlehane/mscfb v1.0.4 h1:WULscsljNPConisD5hR0+OyZjwK46Pfyr6mPu5Z
 github.com/richardlehane/mscfb v1.0.4/go.mod h1:YzVpcZg9czvAuhk9T+a3avCpcFPMUWm7gK3DypaEsUk=
 github.com/richardlehane/msoleps v1.0.1 h1:RfrALnSNXzmXLbGct/P2b4xkFz4e8Gmj/0Vj9M9xC1o=
 github.com/richardlehane/msoleps v1.0.1/go.mod h1:BWev5JBpU9Ko2WAgmZEuiz4/u3ZYTKbjLycmwiWUfWg=
-github.com/richoffice/richframe v1.0.4 h1:0xNNEKh+chiI+eRLPwQaf6LrHIxxJyjOGQipwqPY4SA=
-github.com/richoffice/richframe v1.0.4/go.mod h1:dis3VdhykkofAVBL//KPyBKFk+AH3KGiApTGKZbBnIQ=
+github.com/richoffice/richframe v1.0.5 h1:zdEtHwggQF0eOYAwHyX5xrvs8KlXyKaSqGMuvE1l31k=
+github.com/richoffice/richframe v1.0.5/go.mod h1:dis3VdhykkofAVBL//KPyBKFk+AH3KGiApTGKZbBnIQ=
 github.com/richoffice/weixinmp v1.0.0 h1:J2dvLA8/pJPkiznNlj6oegS9Lt5cAYygXUmSubK5Ivc=
 github.com/richoffice/weixinmp v1.0.0/go.mod h1:GSpNEOSHhs0BCuRThBRP250TmYVSVuKUQzZ1PBjezl8=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=

@@ -228,6 +228,20 @@ func (f *File) Exist(file string) bool {
 	}
 }
 
+func (f *File) Mkdir(path string) interface{} {
+	err := os.MkdirAll(path, os.ModePerm)
+	return err
+}
+
+func (f *File) List(path string) interface{} {
+	files, err := ioutil.ReadDir(path)
+	if err != nil {
+		return err
+	}
+
+	return files
+}
+
 func (f *File) Glob(pattern string) interface{} {
 	files, err := filepath.Glob(pattern)
 	if err != nil {
