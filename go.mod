@@ -6,7 +6,7 @@ require (
 	github.com/Masterminds/sprig v2.22.0+incompatible
 	github.com/dop251/goja v0.0.0-20220730095050-d11430fb5f72
 	github.com/labstack/echo/v4 v4.8.0
-	github.com/richoffice/richframe v1.0.5
+	github.com/richoffice/richframe v1.0.6
 	github.com/richoffice/weixinmp v1.0.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/spf13/viper v1.12.0
