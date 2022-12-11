@@ -33,12 +33,3 @@ changelog:
       - '^docs:'
       - '^test:'
 
-release:
-  disable: true
-blobs:
-  - provider: s3
-    endpoint: https://s3.pek3b.qingstor.com
-    region: pek3b
-    disableSSL: false
-    bucket: edithops
-    folder: "x/abc/{{.Version}}"
