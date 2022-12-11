@@ -9,11 +9,6 @@ before:
 builds:
   - env:
       - CGO_ENABLED=0
-    goos:
-      - linux
-      - windows
-    goarch:
-      - amd64
     main: ./cmd/robi
 archives:
   - replacements:
