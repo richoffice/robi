@@ -167,6 +167,10 @@ func (robi *Robi) MonthEnd(in time.Time) time.Time {
 	return monthEndTime
 }
 
+func (robi *Robi) SubTimeByHour(end, start time.Time) float64 {
+	return end.Sub(start).Hours()
+}
+
 func Percent(x int, y int) string {
 	z := (float64(x) / float64(y)) * 100
 	return fmt.Sprintf("%4.2f", z)
