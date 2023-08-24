@@ -210,3 +210,16 @@ func (robi *Robi) ExecuteCommand(cmdstr string, args []string) error {
 	}
 	return nil
 }
+
+// 判断一个时间是否在本月及高于本月
+func (robi *Robi) IfInMonthAndHigherMonth(t time.Time) bool {
+	now := time.Now()
+	currentMonth := int(now.Month())
+	inputMonth := int(t.Month())
+
+	if inputMonth == currentMonth || inputMonth > currentMonth {
+		return true
+	} else {
+		return false
+	}
+}
