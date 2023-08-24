@@ -223,3 +223,13 @@ func (robi *Robi) IfInMonthAndHigherMonth(t time.Time) bool {
 		return false
 	}
 }
+
+//判断两个时间大小
+
+func (robi *Robi) CompareTwoTime(t1, t2 time.Time) bool {
+	if t1.After(t2) {
+		return true
+	} else {
+		return false
+	}
+}
