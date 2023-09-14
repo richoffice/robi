@@ -117,6 +117,19 @@ func (robi *Robi) Import(defPath string, srcFile string) interface{} {
 	return rf
 }
 
+func (robi *Robi) ImportContainMergeCells(defPath string, srcFile string) interface{} {
+	fullPath := defPath
+
+	if !strings.HasPrefix(defPath, "/") {
+		fullPath = filepath.Join(robi.Base, "defs", defPath)
+	}
+	rf, err := richframe.LoadRichFramesContainMergeCells(srcFile, fullPath, nil)
+	if err != nil {
+		panic(err)
+	}
+	return rf
+}
+
 func (robi *Robi) Export(data map[string]richframe.RichFrame, defPath string, targetFile string) interface{} {
 	fullPath := defPath
 	if !strings.HasPrefix(defPath, "/") {
