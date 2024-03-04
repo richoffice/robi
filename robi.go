@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
+	"math"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -244,5 +245,22 @@ func (robi *Robi) CompareTwoTime(t1, t2 time.Time) bool {
 		return true
 	} else {
 		return false
+	}
+}
+
+// 判断两个时间相差几天 只看天
+
+func (robi *Robi) GetDayDiff(date1, date2 time.Time) int {
+	// 获取日期部分
+	day1 := time.Date(date1.Year(), date1.Month(), date1.Day(), 0, 0, 0, 0, time.UTC)
+	day2 := time.Date(date2.Year(), date2.Month(), date2.Day(), 0, 0, 0, 0, time.UTC)
+
+	// 直接比较日期部分
+	days := math.Abs(float64(day2.Unix()-day1.Unix()) / 86400)
+
+	if date1.After(date2) {
+		return -int(days)
+	} else {
+		return int(days)
 	}
 }
