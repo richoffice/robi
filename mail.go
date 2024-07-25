@@ -24,7 +24,7 @@ func NewMailer(host string, port int, user, password string) *Mailer {
 	client.Port = port
 	client.Username = user
 	client.Password = password
-	client.Encryption = mail.EncryptionSSLTLS
+	client.Encryption = mail.EncryptionSTARTTLS
 	client.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 	return &Mailer{Client: client}
 }
